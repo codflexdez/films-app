@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",  // Use CommonJS to avoid ESM issues
+      "target": "ES6",
+      "outDir": "dist",
+      "rootDir": "./",
+      "esModuleInterop": true, // Allows default imports like "import express from 'express'"
+      "strict": true,
+      "resolveJsonModule": true
+    }
+  }
+  
