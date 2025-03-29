@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { QueryTypes } from "sequelize";
 import sequelize from "../config/db";
 
-// Register a new user with raw SQL query
+// Inscrir un nouveau utilisateur d'application
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { email, nom, prenom } = req.body;
@@ -19,7 +19,6 @@ export const registerUser = async (req: Request, res: Response) => {
         type: QueryTypes.INSERT, // Indicates it's an INSERT query
       }
     );
-    res.json(result);
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     res.status(500).json({ error: "Error registering user", details: err });

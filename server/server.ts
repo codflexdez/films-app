@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import sequelize from "./app/config/db"; // Ensure correct path to db.ts
-import { getAllMovies } from "./app/controllers/movieController";
+import { getAllActors, getAllMovies } from "./app/controllers/movieController";
 import { getUsers } from "./app/controllers/userController";
 
 
@@ -12,6 +12,10 @@ app.use(express.json());
 // Define routes
 app.get("/movies", getAllMovies);
 app.get("/users", getUsers);
+app.get("/actors/:nom/:prenom", getAllActors);
+
+
+
 
 const PORT = process.env.PORT ?? 5000;
 sequelize

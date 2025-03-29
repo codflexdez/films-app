@@ -16,8 +16,8 @@ export const getAllMovies = async (req: Request, res: Response) => {
 };
 
 //« Donne-moi tous les noms de films avec la participation de l'acteur Tom Hanks. »
-
-const getAllActors = async (req: Request, res: Response) => {
+// query params -> /actors/:nom/:prenom
+export const getAllActors = async (req: Request, res: Response) => {
   try {
     // Extract the 'nom' and 'prenom' from request parameters
     const { nom, prenom } = req.params;
@@ -46,6 +46,39 @@ const getAllActors = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'An error occurred while fetching the films' });
   }
 };
+
+
+export const getMoviesGenres = async (req: Request, res: Response) => {
+  try {
+    
+    // Perform the query with the provided parameters
+    const films = await sequelize.query(
+      `SELECT 
+        f.titre, 
+        STRING_AGG(g.nom_genre, ', ') AS genres
+      FROM Film f
+      JOIN Appartenir a ON f.id_film = a.id_film
+      JOIN Genre g ON a.id_genre = g.id_genre
+      GROUP BY f.id_film, f.titre
+      HAVING COUNT(a.id_genre) > 1`,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    // Check if actors were found
+    if (films.length > 0) {
+      res.status(200).json(films); // Return the list of films
+    } else {
+      res.status(404).json({ message: "Aucun film trouvé avec plus d'un genre" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Une erreur s'est produit lors de fetch" });
+  }
+};
+
+
 
 
 
