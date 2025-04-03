@@ -6,7 +6,14 @@
       "rootDir": "./",
       "esModuleInterop": true, // Allows default imports like "import express from 'express'"
       "strict": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true
     }
   }
   
+
+  
+ 
